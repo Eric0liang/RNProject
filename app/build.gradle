@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    signingConfigs {
+        release {
+            storeFile file('./my-release-key.keystore')
+            storePassword "123456"
+            keyAlias "my-key-alias"
+            keyPassword "123456"
+        }
+    }
+    defaultConfig {
+        applicationId "bluemoon.com.cn.rnproject"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile "com.facebook.react:react-native:+" // From node_modules.
+}
